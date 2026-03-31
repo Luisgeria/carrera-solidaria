@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Carrera Solidaria 2026 · CEIP Puente de Simancas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:    #1b6636;
+  --g2:   #27924d;
+  --g3:   #a8d9b8;
+  --gp:   #eaf6ee;
+  --gold: #d4a017;
+  --goldd:#b88800;
+  --dark: #0d1f14;
+  --mid:  #2c4a35;
+  --lite: #f4f9f6;
+  --bdr:  rgba(27,102,54,.14);
+  --sh:   0 12px 48px rgba(27,102,54,.16);
+  --sh2:  0 4px 20px rgba(27,102,54,.22);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',serif;background:var(--lite);color:var(--dark);overflow-x:hidden}
+::selection{background:var(--g);color:#fff}
+
+/* ─── CANVAS ─── */
+#cv{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(13,31,20,.97);
+  border-bottom:3px solid var(--gold);
+  padding:0 2rem;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+}
+.nav-brand{display:flex;align-items:center;gap:.9rem;text-decoration:none;cursor:pointer;flex-shrink:0}
+.nav-brand img{height:44px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
+.nav-brand-text{display:flex;flex-direction:column;line-height:1}
+.nav-brand-text .t1{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.06em}
+.nav-brand-text .t2{font-size:.65rem;color:var(--g3);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;gap:.2rem;align-items:center}
+.nav-links a{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);text-decoration:none;
+  padding:.45rem .85rem;border-radius:6px;
+  transition:background .15s,color .15s;cursor:pointer;white-space:nowrap;
+}
+.nav-links a:hover,.nav-links a.active{background:var(--g);color:#fff}
+.nav-admin{
+  background:var(--gold)!important;color:var(--dark)!important;
+  border-radius:6px!important;font-weight:800!important;
+}
+.nav-admin:hover{background:var(--goldd)!important}
+
+/* ─── PAGES ─── */
+.page{display:none}.page.active{display:block}
+
+/* ─── HERO ─── */
+#hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:68px 0 0;
+  background:var(--dark);
+  overflow:hidden;
+}
+.hero-bg-shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-bg-shapes .shape1{
+  position:absolute;right:-80px;top:-60px;
+  width:520px;height:520px;
+  background:var(--g);
+  border-radius:50%;
+  opacity:.18;
+}
+.hero-bg-shapes .shape2{
+  position:absolute;left:40%;bottom:-120px;
+  width:700px;height:700px;
+  background:var(--gold);
+  border-radius:50%;
+  opacity:.07;
+}
+.hero-bg-shapes .stripe{
+  position:absolute;top:0;bottom:0;right:46%;
+  width:3px;background:var(--gold);opacity:.3;
+}
+.hero-left{
+  position:relative;z-index:2;
+  padding:5rem 3rem 5rem 4rem;
+  display:flex;flex-direction:column;gap:1.5rem;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);
+  animation:slideIn .6s ease both;
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--gold)}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,8vw,7rem);
+  line-height:.92;
+  color:#fff;
+  letter-spacing:.03em;
+  animation:slideIn .7s .1s ease both;
+}
+.hero-title .accent{color:var(--gold);display:block}
+.hero-title .outline{
+  -webkit-text-stroke:2px var(--g2);
+  color:transparent;
+  display:block;
+}
+.hero-sub{
+  font-family:'Barlow Condensed',sans-serif;font-weight:400;
+  font-size:1.1rem;line-height:1.65;
+  color:rgba(255,255,255,.72);
+  max-width:420px;
+  animation:slideIn .7s .2s ease both;
+}
+.hero-sub strong{color:var(--g3)}
+/* APORTACIÓN — hero */
+.hero-aportacion{
+  background:linear-gradient(135deg,rgba(212,160,23,.18),rgba(212,160,23,.08));
+  border:1.5px solid rgba(212,160,23,.5);
+  border-radius:14px;padding:1rem 1.4rem;
+  display:flex;align-items:flex-start;gap:.9rem;
+  animation:slideIn .7s .25s ease both;
+  max-width:480px;
+}
+.hero-aportacion .ai{font-size:1.6rem;flex-shrink:0}
+.hero-aportacion .at strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.04em;color:var(--gold);margin-bottom:.2rem}
+.hero-aportacion .at span{font-size:.82rem;color:rgba(255,255,255,.72);font-family:'Barlow Condensed',sans-serif;line-height:1.5}
+.hero-cta{
+  display:flex;gap:.8rem;flex-wrap:wrap;
+  animation:slideIn .7s .3s ease both;
+}
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:5rem 4rem 5rem 2rem;
+  gap:2rem;
+}
+/* COUNTDOWN */
+.cd-wrap{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;width:100%;
+  animation:slideIn .7s .35s ease both;
+}
+.cd-box{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:1.2rem .6rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cd-box::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
+.cd-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;color:#fff;line-height:1;display:block;
+}
+.cd-lbl{
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--g3);margin-top:.2rem;display:block;
+}
+/* CONTADOR participantes */
+.hero-counter{
+  background:var(--g);
+  border-radius:20px;padding:1.8rem 2.5rem;text-align:center;
+  width:100%;
+  box-shadow:var(--sh2);
+  animation:slideIn .7s .45s ease both;
+  position:relative;overflow:hidden;
+}
+.hero-counter::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+}
+.hero-counter .cn{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;color:#fff;
+  line-height:1;display:block;
+}
+.hero-counter .cl{
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  font-size:1rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g3);margin-top:.3rem;
+}
+.hero-counter .cl span{color:var(--gold)}
+/* LINKS */
+.hero-school-link{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);text-decoration:none;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:.45rem 1rem;
+  transition:color .15s,border-color .15s;
+  animation:slideIn .7s .5s ease both;
+}
+.hero-school-link:hover{color:var(--g3);border-color:var(--g3)}
+
+/* ─── BUTTONS ─── */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;
+  font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:8px;cursor:pointer;border:none;
+  text-decoration:none;
+  padding:.85rem 1.8rem;
+  transition:transform .15s,box-shadow .15s,background .15s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--dark);box-shadow:0 4px 20px rgba(212,160,23,.4)}
+.btn-gold:hover{background:var(--goldd);box-shadow:0 8px 30px rgba(212,160,23,.5)}
+.btn-green{background:var(--g);color:#fff;box-shadow:var(--sh2)}
+.btn-green:hover{background:var(--g2)}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.btn-ghost-g{background:transparent;color:var(--g);border:2px solid var(--g)}
+.btn-ghost-g:hover{background:var(--gp)}
+.btn-sm{padding:.55rem 1.2rem;font-size:.8rem}
+
+/* ─── SECTION LAYOUT ─── */
+section{position:relative;z-index:1;padding:6rem 2rem}
+.container{max-width:1000px;margin:0 auto}
+.s-label{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--g2);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem;
+}
+.s-label::after{content:'';flex:1;height:1px;background:var(--bdr);max-width:120px}
+.s-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.2rem);
+  color:var(--dark);letter-spacing:.04em;margin-bottom:1rem;line-height:1;
+}
+.s-title .acc{color:var(--g)}
+
+/* ─── CAROLINA ─── */
+#carolina{
+  background:linear-gradient(135deg,var(--dark) 0%,#0f3520 100%);
+  position:relative;overflow:hidden;
+}
+#carolina::before{
+  content:'';position:absolute;top:-200px;right:-200px;
+  width:600px;height:600px;border-radius:50%;
+  background:var(--g);opacity:.1;
+}
+.carolina-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center}
+.carolina-text .s-label{color:var(--g3)}
+.carolina-text .s-title{color:#fff}
+.carolina-text p{font-size:1rem;line-height:1.8;color:rgba(255,255,255,.78);margin-bottom:1rem}
+.carolina-text p strong{color:var(--g3)}
+.leucodistrofia{
+  background:rgba(255,255,255,.07);border-left:3px solid var(--gold);
+  border-radius:0 12px 12px 0;padding:1.2rem 1.4rem;margin:1.5rem 0;
+}
+.leucodistrofia h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.06em;color:var(--gold);margin-bottom:.3rem;text-transform:uppercase}
+.leucodistrofia p{font-size:.88rem;color:rgba(255,255,255,.72);margin:0}
+.carolina-visual{
+  display:flex;flex-direction:column;align-items:center;gap:2rem;
+}
+.carolina-logo-frame{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;padding:1.5rem;
+  display:flex;align-items:center;justify-content:center;
+  animation:float 5s ease-in-out infinite;
+}
+.carolina-logo-frame img{max-width:240px;border-radius:50%;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.carolina-quote{
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.6);text-align:center;
+  max-width:260px;line-height:1.65;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:1.2rem;
+}
+
+/* ─── INSCRIPCIÓN ─── */
+#inscripcion{background:#fff}
+.form-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;margin-top:2rem}
+.form-info-col{}
+.form-info-col .s-title{font-size:2.8rem}
+.form-info-col p{font-size:.95rem;line-height:1.75;color:var(--mid);margin-bottom:1.2rem}
+.form-info-col .steps{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
+.step-item{display:flex;align-items:flex-start;gap:1rem}
+.step-num{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--g);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-text{font-size:.88rem;color:var(--mid);line-height:1.55;padding-top:.3rem}
+.step-text strong{color:var(--dark)}
+/* AVISO APORTACIÓN en form */
+.aviso-gold{
+  background:linear-gradient(135deg,#fffbea,#fff5cc);
+  border:2px solid var(--gold);border-radius:14px;
+  padding:1.2rem 1.5rem;margin-bottom:1.5rem;
+  display:flex;align-items:flex-start;gap:.9rem;
+}
+.aviso-gold .ai{font-size:1.8rem;flex-shrink:0}
+.aviso-gold .at strong{display:block;color:#7a4800;font-size:.9rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem}
+.aviso-gold .at span{font-size:.83rem;color:#8a5200;line-height:1.55}
+/* FORM CARD */
+.form-card{
+  background:var(--gp);border-radius:20px;
+  padding:2.2rem;border:1.5px solid var(--bdr);
+  box-shadow:var(--sh);
+}
+.fg{margin-bottom:1.1rem}
+.fg label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
+.fg input,.fg select{
+  width:100%;padding:.75rem 1rem;
+  border:1.5px solid var(--bdr);border-radius:9px;
+  font-family:'Lora',serif;font-size:.93rem;color:var(--dark);
+  background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.fg input:focus,.fg select:focus{border-color:var(--g2);box-shadow:0 0 0 3px rgba(39,146,77,.13);background:#fff}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.form-submit{text-align:center;margin-top:1.4rem}
+.form-submit .btn{width:100%;justify-content:center;padding:1rem}
+#form-msg{text-align:center;margin-top:.9rem;font-size:.88rem;font-weight:600;min-height:1.2rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.msg-ok{color:#166534}.msg-err{color:#dc2626}
+
+/* ─── VIDEOS ─── */
+#videos{background:var(--gp);border-top:1px solid var(--bdr)}
+.video-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:3rem}
+.video-header p{font-size:.98rem;line-height:1.75;color:var(--mid)}
+.upload-zone{
+  border:2.5px dashed var(--g3);border-radius:20px;
+  padding:2.5rem;text-align:center;cursor:pointer;
+  transition:border-color .2s,background .2s;background:#fff;
+}
+.upload-zone:hover{border-color:var(--g);background:var(--gp)}
+.upload-zone .uz-icon{font-size:3.5rem;display:block;margin-bottom:.8rem;line-height:1}
+.upload-zone h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--g);letter-spacing:.05em;margin-bottom:.4rem}
+.upload-zone p{font-size:.85rem;color:var(--mid);line-height:1.55;margin-bottom:1.2rem}
+#video-input{display:none}
+#video-preview-wrap{margin-top:1.5rem;display:none;text-align:center}
+#video-preview-wrap video{width:100%;max-width:600px;border-radius:14px;box-shadow:var(--sh)}
+#vp-actions{display:flex;gap:.8rem;justify-content:center;margin-top:.9rem;flex-wrap:wrap}
+#video-upload-msg{font-size:.85rem;color:var(--mid);margin-top:.6rem;font-family:'Barlow Condensed',sans-serif}
+
+/* ─── DEFC ─── */
+#defc-section{background:var(--dark);color:#fff}
+.defc-intro{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:4rem}
+.defc-hashtag-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,8vw,7rem);
+  color:#fff;line-height:.9;letter-spacing:.04em;
+}
+.defc-hashtag-big span{color:var(--gold)}
+.defc-year-badge{
+  display:inline-block;
+  background:var(--g);color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
+  padding:.3rem .9rem;border-radius:5px;margin-top:.8rem;
+}
+.defc-right .s-label{color:var(--g3)}
+.defc-right .s-title{color:#fff}
+.defc-right p{font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.75}
+.defc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:3rem 0}
+.ds{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:1.5rem;text-align:center;
+}
+.ds .dn{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1}
+.ds .dl{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);margin-top:.3rem}
+.defc-objetivos{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:2rem}
+.do{
+  display:flex;align-items:flex-start;gap:.9rem;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:1rem 1.2rem;
+}
+.do .di{font-size:1.3rem;flex-shrink:0}
+.do p{font-size:.83rem;color:rgba(255,255,255,.72);line-height:1.5;font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:.9rem}
+.defc-cta-bar{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:1.4rem 2rem;margin-top:2.5rem;
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+}
+.defc-cta-bar p{font-size:.9rem;color:rgba(255,255,255,.72);flex:1;font-family:'Barlow Condensed',sans-serif;line-height:1.5}
+.defc-cta-bar p strong{color:var(--g3)}
+
+/* ─── RECORRIDO ─── */
+#recorrido-section{background:#fff}
+.recorrido-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:2.5rem}
+.map-frame{
+  border-radius:20px;overflow:hidden;
+  border:3px solid var(--bdr);box-shadow:var(--sh);
+  aspect-ratio:4/3;
+}
+.map-frame iframe{width:100%;height:100%;border:none}
+.rec-cards{display:flex;flex-direction:column;gap:.9rem}
+.rec-card{
+  background:var(--gp);border:1.5px solid var(--bdr);
+  border-radius:14px;padding:1.1rem 1.3rem;
+  display:flex;align-items:flex-start;gap:.9rem;
+  transition:box-shadow .15s,transform .15s;
+}
+.rec-card:hover{transform:translateX(4px);box-shadow:var(--sh2)}
+.rec-card .ri{font-size:1.7rem;flex-shrink:0}
+.rec-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;color:var(--g);margin-bottom:.2rem}
+.rec-card p{font-size:.84rem;color:var(--mid);line-height:1.5}
+.timeline{margin-top:1.5rem}
+.timeline h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--dark);letter-spacing:.05em;margin-bottom:1rem}
+.ti{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+.td{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--g);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.tc h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.04em;color:var(--dark)}
+.tc p{font-size:.82rem;color:var(--mid)}
+
+/* ─── ADMIN ─── */
+#adm-ov{display:none;position:fixed;inset:0;z-index:500;background:rgba(13,31,20,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#adm-ov.open{display:flex}
+.adm-modal{
+  background:#fff;border-radius:20px;padding:2.2rem;
+  width:100%;max-width:920px;max-height:92vh;overflow-y:auto;
+  box-shadow:0 40px 100px rgba(0,0,0,.35);position:relative;
+}
+.adm-modal h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--g);letter-spacing:.05em;margin-bottom:1.2rem}
+.adm-x{
+  position:absolute;top:1.2rem;right:1.2rem;
+  background:var(--gp);border:none;width:36px;height:36px;border-radius:50%;
+  font-size:1.1rem;cursor:pointer;color:var(--g);
+  display:flex;align-items:center;justify-content:center;
+}
+.adm-tabs{display:flex;gap:.5rem;margin-bottom:1.4rem;border-bottom:2px solid var(--bdr);padding-bottom:.5rem}
+.adm-tab{
+  padding:.5rem 1.1rem;border:none;background:transparent;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.83rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--mid);cursor:pointer;
+  border-radius:6px 6px 0 0;transition:background .15s,color .15s;
+}
+.adm-tab.active,.adm-tab:hover{background:var(--g);color:#fff}
+.adm-tc{display:none}.adm-tc.active{display:block}
+/* login */
+.adm-login{text-align:center;padding:1rem}
+.adm-login p{color:var(--mid);margin-bottom:1.4rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem}
+.adm-login input{
+  padding:.8rem 1.2rem;border:1.5px solid var(--bdr);border-radius:9px;
+  font-size:1rem;font-family:'Lora',serif;outline:none;letter-spacing:.25em;text-align:center;
+  width:210px;margin-bottom:1rem;display:block;margin-left:auto;margin-right:auto;
+}
+.adm-login input:focus{border-color:var(--g2)}
+#adm-err{color:#dc2626;font-size:.85rem;min-height:1.2rem;font-family:'Barlow Condensed',sans-serif}
+/* toolbar */
+.adm-toolbar{display:flex;gap:.7rem;margin-bottom:1.1rem;flex-wrap:wrap;align-items:center}
+.adm-search{
+  padding:.5rem .9rem;border:1.5px solid var(--bdr);border-radius:8px;
+  font-size:.85rem;font-family:'Lora',serif;outline:none;width:200px;
+}
+.adm-search:focus{border-color:var(--g2)}
+.adm-cnt{font-size:.88rem;color:var(--mid);margin-left:auto;font-weight:600;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+/* table */
+.tw{overflow-x:auto;border-radius:12px;border:1.5px solid var(--bdr);max-height:340px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+thead{background:var(--g);color:#fff;position:sticky;top:0;z-index:2}
+thead th{padding:.8rem 1rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gp)}
+tbody td{padding:.7rem 1rem;color:var(--mid)}
+.empty-st{text-align:center;padding:2.5rem;color:var(--mid);font-size:.9rem;font-family:'Barlow Condensed',sans-serif}
+.cb{background:var(--gp);color:var(--g);font-size:.72rem;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:.2rem .6rem;border-radius:5px}
+.sb{font-size:.7rem;padding:.15rem .5rem;border-radius:5px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.sw{background:#dbeafe;color:#1d4ed8}.sa{background:#dcfce7;color:#15803d}
+/* bulk */
+.bulk-zone{
+  background:var(--gp);border:2px dashed var(--g3);border-radius:14px;
+  padding:2rem;text-align:center;cursor:pointer;transition:border-color .2s;margin-bottom:1rem;
+}
+.bulk-zone:hover{border-color:var(--g)}
+.bulk-zone h4{color:var(--g);font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;margin-bottom:.3rem}
+.bulk-zone p{font-size:.82rem;color:var(--mid);line-height:1.5}
+#bulk-file{display:none}
+#bulk-prev{display:none;margin-top:.9rem}
+.bpt{width:100%;border-collapse:collapse;font-size:.8rem;border-radius:10px;overflow:hidden;border:1.5px solid var(--bdr)}
+.bpt thead th{background:var(--g);color:#fff;padding:.5rem .8rem;text-align:left}
+.bpt tbody td{padding:.4rem .8rem;border-bottom:1px solid var(--bdr)}
+.bulk-actions{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin-top:.9rem}
+#bulk-upload-msg{font-size:.83rem;color:var(--mid);font-family:'Barlow Condensed',sans-serif}
+/* manual */
+.manual-box{background:var(--gp);border-radius:14px;padding:1.3rem 1.5rem;border:1.5px solid var(--bdr);margin-top:1.5rem}
+.manual-box h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:.8rem}
+.manual-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.7rem;align-items:end}
+.mf input,.mf select{width:100%;padding:.6rem .9rem;border:1.5px solid var(--bdr);border-radius:8px;font-family:'Lora',serif;font-size:.88rem;outline:none}
+.mf input:focus,.mf select:focus{border-color:var(--g2)}
+.mf label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--mid);margin-bottom:.3rem}
+#manual-msg{font-size:.82rem;margin-top:.5rem;min-height:1.2rem;font-family:'Barlow Condensed',sans-serif}
+
+/* ─── CONFIRM MODAL ─── */
+#conf-ov{display:none;position:fixed;inset:0;z-index:400;background:rgba(13,31,20,.8);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+#conf-ov.open{display:flex}
+.conf-box{
+  background:#fff;border-radius:20px;padding:3rem 2.5rem;
+  max-width:480px;width:100%;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+}
+.conf-box .ci{font-size:5rem;display:block;margin-bottom:1rem;line-height:1}
+.conf-box h3{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--g);letter-spacing:.05em;margin-bottom:.8rem}
+.conf-box p{font-size:.95rem;color:var(--mid);line-height:1.7;margin-bottom:.6rem}
+.conf-box .btn{margin-top:1.2rem;width:100%;justify-content:center}
+
+/* ─── PATROCINADORES ─── */
+.sponsor-logo{
+  display:flex;align-items:center;justify-content:center;
+  opacity:.75;transition:opacity .2s,transform .2s;
+  filter:grayscale(30%);
+}
+.sponsor-logo:hover{opacity:1;transform:scale(1.06);filter:grayscale(0%)}
+.sponsor-logo img{height:52px;width:auto;object-fit:contain;max-width:180px}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--dark);
+  border-top:3px solid var(--g);
+  padding:3rem 2rem;position:relative;z-index:1;
+}
+.footer-inner{
+  max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:2rem;align-items:center;
+}
+.footer-brand{display:flex;align-items:center;gap:1rem}
+.footer-brand img{height:50px;filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
+.footer-brand-text .t1{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:.06em}
+.footer-brand-text .t2{font-size:.7rem;color:var(--g3);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:.1rem}
+.footer-center{text-align:center}
+.footer-center p{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;color:rgba(255,255,255,.5);letter-spacing:.04em;line-height:1.8}
+.footer-center a{color:var(--g3);text-decoration:none}
+.footer-center a:hover{color:var(--gold)}
+.footer-right{text-align:right}
+.footer-right .carolina-link{
+  display:flex;align-items:center;gap:.5rem;justify-content:flex-end;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);text-decoration:none;
+  transition:color .15s;
+}
+.footer-right .carolina-link:hover{color:var(--g3)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes slideIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:800px){
+  #hero{grid-template-columns:1fr;padding-top:68px}
+  .hero-left{padding:3rem 2rem}
+  .hero-right{padding:2rem;order:-1}
+  .carolina-grid,.form-layout,.video-header,.defc-intro,.recorrido-grid{grid-template-columns:1fr}
+  .defc-stats{grid-template-columns:1fr 1fr}
+  .defc-objetivos{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;text-align:center}
+  .footer-right{text-align:center}
+  .footer-right .carolina-link{justify-content:center}
+  .nav-brand-text .t1{font-size:.85rem}
+  /* fases recorrido en móvil */
+  .fases-grid{grid-template-columns:1fr!important;gap:1.2rem!important}
+  .fases-sep{display:none!important}
+  /* HAMBURGER MÓVIL */
+  .nav-links{
+    display:none;
+    position:fixed;top:68px;left:0;right:0;
+    background:rgba(13,31,20,.99);
+    flex-direction:column;
+    padding:1rem;gap:.3rem;
+    border-bottom:3px solid var(--gold);
+    z-index:199;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{
+    font-size:1rem;padding:.75rem 1.2rem;
+    border-radius:8px;width:100%;text-align:left;
+  }
+  .hamburger{display:flex}
+}
+@media(min-width:801px){
+  .hamburger{display:none!important}
+}
+@media(max-width:560px){
+  .manual-row{grid-template-columns:1fr}
+}
+/* HAMBURGER BTN */
+.hamburger{
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;cursor:pointer;background:transparent;border:none;
+  padding:.4rem;flex-shrink:0;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:#fff;border-radius:2px;
+  transition:transform .25s,opacity .25s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">
+    <img src="logo_ceip.jpg" alt="CEIP Puente de Simancas"/>
+    <div class="nav-brand-text">
+      <span class="t1">CEIP Puente de Simancas</span>
+      <span class="t2">Carrera Solidaria 2026</span>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a id="nav-home" class="active" onclick="showPage('home');closeMenu()">Inicio</a>
+    <a id="nav-defc" onclick="showPage('defc');closeMenu()">EF en la Calle</a>
+    <a id="nav-recorrido" onclick="showPage('recorrido');closeMenu()">Recorrido</a>
+    <a onclick="showPage('home');goTo('inscripcion');closeMenu()">Inscripción</a>
+    <a onclick="showPage('home');goTo('bizum');closeMenu()" style="color:var(--gold)!important">💛 Bizum</a>
+    <a class="nav-admin" onclick="openAdmin();closeMenu()">🔐 Admin</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<div id="page-home" class="page active">
+
+<!-- HERO -->
+<section id="hero" style="padding:0">
+  <div class="hero-bg-shapes">
+    <div class="shape1"></div><div class="shape2"></div><div class="stripe"></div>
+  </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">29 de mayo de 2026 &nbsp;·&nbsp; Valladolid</div>
+    <h1 class="hero-title">
+      <span class="outline">Carrera</span>
+      <span>Solidaria</span>
+      <span class="accent">2026</span>
+    </h1>
+    <p class="hero-sub">
+      El CEIP Puente de Simancas celebra el <strong>Día de la EF en la Calle</strong> uniendo deporte y solidaridad a favor de <strong>Carolina Purpurina</strong> y la visibilización de las enfermedades raras.
+    </p>
+    <div class="hero-aportacion">
+      <div class="ai">🎽</div>
+      <div class="at">
+        <strong>Aportación solidaria al recoger el dorsal</strong>
+        <span>La participación incluye una <strong>aportación voluntaria</strong> que se realiza al recoger el dorsal. Toda la recaudación va íntegramente a la asociación <strong>Carolina Purpurina</strong>.</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn btn-gold" onclick="goTo('inscripcion')">✍️ Inscríbete ya</button>
+      <button class="btn btn-ghost" onclick="showPage('recorrido')">🗺️ Ver recorrido</button>
+    </div>
+    <a href="http://ceippuentedesimancas.centros.educa.jcyl.es/sitio/" target="_blank" rel="noopener" class="hero-school-link">
+      🏫 Visita la web del colegio →
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="cd-wrap" id="countdown">
+      <div class="cd-box"><span class="cd-num" id="cd-days">--</span><span class="cd-lbl">Días</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><span class="cd-lbl">Horas</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><span class="cd-lbl">Min</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><span class="cd-lbl">Seg</span></div>
+    </div>
+    <div class="hero-counter">
+      <span class="cn" id="total-count">0</span>
+      <div class="cl">participantes inscritos <span>🎽</span></div>
+    </div>
+    <a href="https://www.carolinapurpurina.es/" target="_blank" rel="noopener" class="hero-school-link" style="color:var(--g3);border-color:rgba(168,217,184,.3)">
+      💜 Conoce a Carolina Purpurina →
+    </a>
+    <a href="https://www.carolinapurpurina.es/" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:.6rem;text-decoration:none;animation:slideIn .7s .55s ease both">
+      <img src="carolina_logo.png" alt="Asociación Amigos de Carolina Purpurina"
+        style="width:160px;height:160px;object-fit:contain;border-radius:50%;box-shadow:0 6px 30px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s"
+        onmouseover="this.style.transform='scale(1.06)';this.style.boxShadow='0 10px 40px rgba(0,0,0,.5)'"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 6px 30px rgba(0,0,0,.4)'"
+      />
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)">Asociación Amigos de Carolina Purpurina</span>
+    </a>
+  </div>
+</section>
+
+<!-- CAROLINA PURPURINA -->
+<section id="carolina">
+  <div class="container">
+    <div class="carolina-grid">
+      <div class="carolina-text reveal">
+        <div class="s-label">Nuestra causa solidaria</div>
+        <h2 class="s-title">¿Quién es <span class="acc">Carolina?</span></h2>
+        <p>Carolina Purpurina es un libro de aventuras inspirado en una niña con <strong>leucodistrofia</strong>. Escrito por su hermana Isabel con una precocidad admirable, es un relato de capacidad, amor y esperanza que ha recorrido toda España.</p>
+        <p>«Si ponemos un puñadito de purpurina en la palma de la mano y soplamos, los problemas vuelan y desaparecen en el aire, como la purpurina…»</p>
+        <div class="leucodistrofia">
+          <h4>¿Qué es la leucodistrofia?</h4>
+          <p>Grupo de enfermedades raras hereditarias que afectan a la mielina del sistema nervioso central, condicionando el desarrollo motor, cognitivo y sensorial.</p>
+        </div>
+        <a href="https://www.carolinapurpurina.es/" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top:1rem">🌐 carolinapurpurina.es →</a>
+      </div>
+      <div class="carolina-visual reveal">
+        <div class="carolina-logo-frame">
+          <img src="carolina_logo.png" alt="Carolina Purpurina"/>
+        </div>
+        <div class="carolina-quote">Brillantes aventuras sobre ruedas · Visibilizando las enfermedades raras en los colegios de España</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS PARTICIPANTES -->
+<section id="videos">
+  <div class="container">
+    <div class="video-header reveal">
+      <div>
+        <div class="s-label">¡Cuéntanoslo!</div>
+        <h2 class="s-title">Mensajes de <span class="s-title acc" style="display:inline">participantes</span></h2>
+      </div>
+      <div>
+        <p>¿Quieres animar a toda la comunidad a inscribirse? Grábate en 30 segundos apoyando la carrera solidaria. Juntos hacemos más ruido.</p>
+      </div>
+    </div>
+    <div class="upload-zone reveal" onclick="document.getElementById('video-input').click()">
+      <span class="uz-icon">🎥</span>
+      <h3>Sube tu vídeo de apoyo</h3>
+      <p>MP4, MOV o WebM · Máximo 100 MB<br/>Grábate animando a correr por Carolina Purpurina</p>
+      <button class="btn btn-green btn-sm" onclick="event.stopPropagation();document.getElementById('video-input').click()">📤 Seleccionar vídeo</button>
+      <input type="file" id="video-input" accept="video/*" onchange="previewVideo(this)"/>
+    </div>
+    <div id="video-preview-wrap">
+      <video id="video-preview" controls></video>
+      <div id="vp-actions">
+        <button class="btn btn-green btn-sm" onclick="uploadVideo()">💚 Publicar</button>
+        <button class="btn btn-ghost-g btn-sm" onclick="cancelVideo()">Cancelar</button>
+      </div>
+      <div id="video-upload-msg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSCRIPCIÓN -->
+<section id="inscripcion">
+  <div class="container">
+    <div class="form-layout">
+      <div class="form-info-col reveal">
+        <div class="s-label">¡Únete!</div>
+        <h2 class="s-title">Inscripción <span class="acc">gratuita</span></h2>
+        <p>Rellena el formulario y formarás parte de la carrera solidaria del 29 de mayo. En el momento de recoger tu dorsal realizarás la aportación solidaria para Carolina Purpurina.</p>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Rellena el formulario</strong> con tu nombre, curso y email.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Recibe confirmación</strong> y queda apuntado/a oficialmente.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Recoge tu dorsal</strong> el día del evento y realiza la aportación solidaria.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>¡A correr!</strong> El 29 de mayo junto a toda la comunidad del Puente de Simancas.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-card">
+          <div class="aviso-gold">
+            <div class="ai">🎽</div>
+            <div class="at">
+              <strong>Aportación solidaria al recoger el dorsal</strong>
+              <span>Toda la recaudación va a la asociación <strong>Carolina Purpurina</strong>. ¡Gracias!</span>
+            </div>
+          </div>
+          <div class="fg-row">
+            <div class="fg"><label>Nombre y apellidos *</label><input type="text" id="f-nombre" placeholder="Laura Gómez Martín"/></div>
+            <div class="fg">
+              <label>Curso / Clase *</label>
+              <select id="f-curso">
+                <option value="">Selecciona...</option>
+                <option>0-1 años</option><option>2 años</option>
+                <option>Infantil 3 años</option><option>Infantil 4 años</option><option>Infantil 5 años</option>
+                <option>1º Primaria</option><option>2º Primaria</option><option>3º Primaria</option>
+                <option>4º Primaria</option><option>5º Primaria</option><option>6º Primaria</option>
+                <option>Familia / Docente</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label>Correo electrónico *</label><input type="email" id="f-email" placeholder="correo@ejemplo.com"/></div>
+          <div class="form-submit">
+            <button class="btn btn-gold" onclick="submitForm()">💚 ¡Me apunto a la carrera!</button>
+          </div>
+          <div id="form-msg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIZUM SOLIDARIO -->
+<section id="bizum" style="background:linear-gradient(135deg,#0d3320 0%,#0a2918 100%);padding:4rem 2rem;border-top:1px solid rgba(255,255,255,.07)">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto">
+      <!-- CABECERA -->
+      <div style="text-align:center;margin-bottom:2.5rem">
+        <div style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(212,160,23,.15);border:1.5px solid rgba(212,160,23,.4);border-radius:100px;padding:.4rem 1.2rem;margin-bottom:1rem">
+          <span style="font-size:.9rem">💛</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)">¿No puedes venir? ¡Colabora desde casa!</span>
+        </div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;letter-spacing:.04em;line-height:1">
+          Dona con <span style="color:var(--gold)">Bizum</span>
+        </h2>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:rgba(255,255,255,.65);margin-top:.5rem;line-height:1.6">
+          Aunque no puedas estar en la carrera, puedes sumarte a la causa solidaria desde donde estés.
+        </p>
+      </div>
+
+      <!-- TARJETA PRINCIPAL -->
+      <div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(212,160,23,.35);border-radius:24px;padding:2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center">
+        <!-- CÓDIGO BIZUM -->
+        <div style="text-align:center;flex-shrink:0">
+          <div style="background:var(--gold);border-radius:16px;padding:1.5rem 2rem;display:inline-block;box-shadow:0 8px 30px rgba(212,160,23,.4)">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(13,31,20,.7);margin-bottom:.3rem">Código campaña</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:3.8rem;color:var(--dark);line-height:1;letter-spacing:.05em">12773</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.75rem;color:rgba(13,31,20,.6);margin-top:.2rem;font-weight:600">Carolina Purpurina</div>
+          </div>
+        </div>
+        <!-- INSTRUCCIONES -->
+        <div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;letter-spacing:.04em;margin-bottom:1.2rem">¿Cómo hacerlo? Es muy fácil:</h3>
+          <div style="display:flex;flex-direction:column;gap:.9rem">
+            <div style="display:flex;align-items:flex-start;gap:.9rem">
+              <div style="width:30px;height:30px;border-radius:50%;background:var(--g);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-size:.98rem;color:rgba(255,255,255,.82);line-height:1.5;padding-top:.2rem">Abre la app de tu banco y entra en la sección <strong style="color:#fff">Bizum</strong>.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.9rem">
+              <div style="width:30px;height:30px;border-radius:50%;background:var(--g);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-size:.98rem;color:rgba(255,255,255,.82);line-height:1.5;padding-top:.2rem">Busca la opción <strong style="color:#fff">«Donar a ONG»</strong> o <strong style="color:#fff">«Causa solidaria»</strong> <span style="color:rgba(255,255,255,.5)">(el nombre varía según tu banco)</span>.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.9rem">
+              <div style="width:30px;height:30px;border-radius:50%;background:var(--g);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-size:.98rem;color:rgba(255,255,255,.82);line-height:1.5;padding-top:.2rem">Introduce el código de campaña <strong style="color:var(--gold);font-size:1.1rem">12773</strong> y elige la cantidad que desees donar.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:.9rem">
+              <div style="width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--dark);font-family:'Bebas Neue',sans-serif;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-size:.98rem;color:rgba(255,255,255,.82);line-height:1.5;padding-top:.2rem"><strong style="color:var(--gold)">¡Listo!</strong> Tu donación llegará directamente a la <strong style="color:#fff">Asociación Amigos de Carolina Purpurina</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTA INFERIOR -->
+      <div style="text-align:center;margin-top:1.5rem">
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.6">
+          Cualquier cantidad suma. Gracias por apoyar la visibilización de las enfermedades raras. 💜
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATROCINADORES -->
+<section id="patrocinadores" style="background:#0d1f14;padding:3.5rem 2rem;border-top:1px solid rgba(255,255,255,.07)">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2rem">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3)">— Colaboradores y patrocinadores —</span>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap">
+      <a href="https://www.simancas.es/" target="_blank" rel="noopener" class="sponsor-logo">
+        <img src="logo_ayto_simancas.png" alt="Ayuntamiento de Simancas"/>
+      </a>
+      <a href="https://www.diputaciondevalladolid.es/" target="_blank" rel="noopener" class="sponsor-logo">
+        <img src="logo_diputacion.png" alt="Diputación de Valladolid"/>
+      </a>
+      <a href="https://www.estrellagalicia.es/" target="_blank" rel="noopener" class="sponsor-logo">
+        <img src="logo_estrella.png" alt="Estrella Galicia"/>
+      </a>
+      <a href="https://www.tribunavalladolid.com/" target="_blank" rel="noopener" class="sponsor-logo">
+        <img src="logo_tribuna.png" alt="Tribuna Valladolid"/>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo_ceip.jpg" alt="Logo CEIP"/>
+      <div class="footer-brand-text">
+        <div class="t1">CEIP Puente de Simancas</div>
+        <div class="t2">Organizado por el CEIP Puente de Simancas</div>
+      </div>
+    </div>
+    <div class="footer-center">
+      <p>Carrera Solidaria · 29 de mayo de 2026 · Valladolid<br/>
+      <a href="http://ceippuentedesimancas.centros.educa.jcyl.es/sitio/" target="_blank">ceippuentedesimancas.centros.educa.jcyl.es</a></p>
+    </div>
+    <div class="footer-right">
+      <a href="https://www.carolinapurpurina.es/" target="_blank" rel="noopener" class="carolina-link">
+        💜 carolinapurpurina.es →
+      </a>
+    </div>
+  </div>
+</footer>
+</div><!-- /page-home -->
+
+<!-- ═══════════════ DEFC PAGE ═══════════════ -->
+<div id="page-defc" class="page">
+<div style="padding-top:68px">
+<section id="defc-section">
+  <div class="container">
+    <div class="defc-intro">
+      <div class="reveal">
+        <div class="defc-hashtag-big">#DEFC<span>2026</span></div>
+        <div class="defc-year-badge">16ª Edición</div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;color:rgba(255,255,255,.6);margin-top:1.5rem;line-height:1.6">
+          El mayor evento educativo de actividad física de España. 680 centros, más de 112.000 alumnos y alumnas.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="s-label" style="color:var(--g3)">El Día de la EF en la Calle</div>
+        <h2 class="s-title" style="color:#fff">Una iniciativa <span style="color:var(--gold)">nacida en las aulas</span></h2>
+        <p style="font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.75">El #DEFC nació en 2011 en Laviana (Asturias) con 125 alumnos. Creado por el profesor Fran Flórez, su objetivo fue simple: mostrar a la sociedad lo que es la Educación Física real, sacarla a la calle. Hoy es referente nacional.</p>
+        <p style="font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.75;margin-top:.8rem">La temática del DEFC 2026: <strong style="color:var(--g3)">«EF 2.0: Moviendo cuerpos, conectando mentes»</strong> — cómo la tecnología condiciona la forma de moverse y cuidarse.</p>
+      </div>
+    </div>
+    <div class="defc-stats reveal">
+      <div class="ds"><div class="dn">680</div><div class="dl">Centros adheridos en España</div></div>
+      <div class="ds"><div class="dn">112.604</div><div class="dl">Alumnos y alumnas participantes</div></div>
+      <div class="ds"><div class="dn">2011</div><div class="dl">Año de inicio · Laviana, Asturias</div></div>
+    </div>
+    <div class="s-label" style="color:var(--g3)">Objetivos de la iniciativa</div>
+    <div class="defc-objetivos reveal">
+      <div class="do"><div class="di">🏃</div><p>Mostrar la importancia de la EF para el desarrollo integral en todas las edades</p></div>
+      <div class="do"><div class="di">💪</div><p>Transmitir valores: esfuerzo, autosuperación, cooperación y empatía</p></div>
+      <div class="do"><div class="di">🧠</div><p>Concienciar sobre los altos índices de sedentarismo y sus consecuencias</p></div>
+      <div class="do"><div class="di">🌈</div><p>Mostrar una EF actual: integradora, variada y orientada a hábitos saludables</p></div>
+      <div class="do"><div class="di">📣</div><p>Animar a la sociedad a adoptar estilos de vida activos</p></div>
+      <div class="do"><div class="di">🤝</div><p>Fomentar actividades físicas variadas para el bienestar integral</p></div>
+    </div>
+    <div class="defc-cta-bar reveal">
+      <div style="font-size:2rem">🔗</div>
+      <p>El CEIP Puente de Simancas se suma al <strong>#DEFC2026</strong> con su propia edición el <strong>29 de mayo de 2026</strong>, añadiendo la dimensión solidaria a favor de Carolina Purpurina.</p>
+      <a href="https://www.consejo-colef.es/defc-home" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Web oficial →</a>
+    </div>
+    <div style="text-align:center;margin-top:3rem">
+      <button class="btn btn-gold" onclick="showPage('home');goTo('inscripcion')">✍️ ¡Inscríbete ya!</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo_ceip.jpg" alt="Logo CEIP"/>
+      <div class="footer-brand-text"><div class="t1">CEIP Puente de Simancas</div><div class="t2">Organizado por el CEIP Puente de Simancas</div></div>
+    </div>
+    <div class="footer-center"><p>Carrera Solidaria · 29 de mayo de 2026 · <a href="http://ceippuentedesimancas.centros.educa.jcyl.es/sitio/" target="_blank">ceippuentedesimancas.centros.educa.jcyl.es</a></p></div>
+    <div class="footer-right"><a href="https://www.carolinapurpurina.es/" target="_blank" class="carolina-link">💜 carolinapurpurina.es →</a></div>
+  </div>
+</footer>
+</div>
+</div><!-- /page-defc -->
+
+<!-- ═══════════════ RECORRIDO PAGE ═══════════════ -->
+<div id="page-recorrido" class="page">
+<div style="padding-top:68px">
+<section id="recorrido-section">
+  <div class="container">
+    <div class="s-label">La ruta de la carrera</div>
+    <h2 class="s-title">Recorrido <span class="acc">2026</span></h2>
+    <p style="color:var(--mid);line-height:1.75;max-width:680px;margin-bottom:2.5rem">
+      Una ruta con dos momentos: la <strong>ida caminando juntos</strong> hasta las instalaciones deportivas de Los Pinos, y la <strong>vuelta corriendo</strong> para quien quiera. ¡Perfecto para todas las edades y ritmos!
+    </p>
+
+    <!-- FASES DEL RECORRIDO - VISUAL -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:3rem" class="reveal fases-grid">
+      <!-- IDA -->
+      <div style="background:var(--gp);border:2px solid var(--bdr);border-radius:20px;padding:2rem;text-align:center">
+        <div style="font-size:3rem;margin-bottom:.8rem">🚶‍♂️🚶‍♀️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--g);letter-spacing:.05em;margin-bottom:.4rem">IDA · A pie</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem">CEIP Puente de Simancas → Los Pinos</div>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.6">Salimos todos juntos caminando desde el colegio hasta las instalaciones deportivas de <strong>Los Pinos</strong>. Un momento perfecto para ir en familia y disfrutar del camino.</p>
+        <div style="margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;background:var(--g);color:#fff;border-radius:100px;padding:.35rem 1rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase">
+          🟢 Todos participan
+        </div>
+      </div>
+
+      <!-- FLECHA -->
+      <div class="fases-sep" style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--mid);letter-spacing:.1em;text-align:center;writing-mode:vertical-rl;transform:rotate(180deg)">Los Pinos</div>
+        <div style="width:2px;height:60px;background:linear-gradient(var(--g),var(--gold))"></div>
+        <div style="font-size:1.5rem">📍</div>
+        <div style="width:2px;height:60px;background:linear-gradient(var(--gold),var(--g))"></div>
+      </div>
+
+      <!-- VUELTA -->
+      <div style="background:linear-gradient(135deg,#0d3320,#0a2918);border:2px solid rgba(212,160,23,.35);border-radius:20px;padding:2rem;text-align:center">
+        <div style="font-size:3rem;margin-bottom:.8rem">🏃‍♂️🏃‍♀️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:.05em;margin-bottom:.4rem">VUELTA · Corriendo</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.8rem">Los Pinos → CEIP Puente de Simancas</div>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.6">El regreso al colegio es <strong style="color:#fff">corriendo para quien quiera</strong>. Alumnos y familias que se animen podrán volver a ritmo de carrera. ¡Sin presión, cada uno a su ritmo!</p>
+        <div style="margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--dark);border-radius:100px;padding:.35rem 1rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase">
+          ⚡ Opcional · ¡A tope!
+        </div>
+      </div>
+    </div>
+
+    <!-- MAPA + DETALLES -->
+    <div class="recorrido-grid">
+      <div class="reveal">
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3001.5!2d-4.7583!3d41.6235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0xd4718!2sCEIP+Puente+de+Simancas%2C+Valladolid!3m2!1d41.623!2d-4.758!4m5!1s0xd4719!2sInstalaciones+Deportivas+Los+Pinos%2C+Simancas!3m2!1d41.601!2d-4.727!5e0!3m2!1ses!2ses!4v1"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa recorrido CEIP - Los Pinos">
+          </iframe>
+        </div>
+        <p style="font-size:.78rem;color:var(--mid);margin-top:.7rem;text-align:center;line-height:1.6">
+          📍 <strong>Salida y llegada:</strong> CEIP Puente de Simancas<br/>
+          🏁 <strong>Punto de giro:</strong> Instalaciones Deportivas Los Pinos
+        </p>
+      </div>
+
+      <div class="rec-cards reveal">
+        <div class="rec-card">
+          <div class="ri">📍</div>
+          <div><h4>Salida y llegada</h4><p>CEIP Puente de Simancas. Todo empieza y termina aquí.</p></div>
+        </div>
+        <div class="rec-card">
+          <div class="ri">🚶</div>
+          <div><h4>Ida — Caminando (todos)</h4><p>Desde el colegio hasta las instalaciones deportivas de <strong>Los Pinos</strong>. Toda la comunidad educativa juntos, sin excepciones.</p></div>
+        </div>
+        <div class="rec-card">
+          <div class="ri">🏃</div>
+          <div><h4>Vuelta — Corriendo (opcional)</h4><p>El regreso desde Los Pinos al colegio se hace corriendo para quien quiera. Alumnos, familias y docentes que se animen. ¡Cada uno a su ritmo!</p></div>
+        </div>
+        <div class="rec-card">
+          <div class="ri">👕</div>
+          <div><h4>Indumentaria</h4><p>Ropa cómoda para andar y correr. Se anima a llevar algo morado o purpurina en solidaridad con Carolina.</p></div>
+        </div>
+
+        <div class="timeline">
+          <h3>⏰ Programa del día</h3>
+          <div class="ti">
+            <div class="td">1</div>
+            <div class="tc"><h5>Concentración y calentamiento</h5><p>CEIP Puente de Simancas · Salida conjunta</p></div>
+          </div>
+          <div class="ti">
+            <div class="td">2</div>
+            <div class="tc"><h5>Caminata hasta Los Pinos 🚶</h5><p>Toda la comunidad educativa junta, a pie, disfrutando del camino</p></div>
+          </div>
+          <div class="ti">
+            <div class="td">3</div>
+            <div class="tc"><h5>Parada en Los Pinos 📍</h5><p>Punto de giro · Momento de reagrupamiento</p></div>
+          </div>
+          <div class="ti">
+            <div class="td">4</div>
+            <div class="tc"><h5>Vuelta corriendo al cole 🏃</h5><p>Los que quieran vuelven corriendo · Sin presión, ¡a tu ritmo!</p></div>
+          </div>
+          <div class="ti">
+            <div class="td" style="background:var(--gold);color:var(--dark)">✓</div>
+            <div class="tc"><h5>Meta y acto solidario 🎉</h5><p>Llegada al CEIP · Entrega de aportaciones para Carolina Purpurina</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem">
+      <button class="btn btn-gold" onclick="showPage('home');goTo('inscripcion')">✍️ ¡Apúntate a la carrera!</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo_ceip.jpg" alt="Logo CEIP"/>
+      <div class="footer-brand-text"><div class="t1">CEIP Puente de Simancas</div><div class="t2">Organizado por el CEIP Puente de Simancas</div></div>
+    </div>
+    <div class="footer-center"><p>Carrera Solidaria · 29 de mayo de 2026 · <a href="http://ceippuentedesimancas.centros.educa.jcyl.es/sitio/" target="_blank">ceippuentedesimancas.centros.educa.jcyl.es</a></p></div>
+    <div class="footer-right"><a href="https://www.carolinapurpurina.es/" target="_blank" class="carolina-link">💜 carolinapurpurina.es →</a></div>
+  </div>
+</footer>
+</div>
+</div><!-- /page-recorrido -->
+
+<!-- ═══ CONFIRM MODAL ═══ -->
+<div id="conf-ov">
+  <div class="conf-box">
+    <span class="ci">🎉</span>
+    <h3>¡Inscripción realizada!</h3>
+    <p>Tu inscripción en la <strong>Carrera Solidaria 2026</strong> ha sido confirmada.</p>
+    <p>Para más información contacta con el <strong>CEIP Puente de Simancas</strong>.</p>
+    <p style="font-size:.82rem;color:#888;margin-top:.5rem">Recuerda: al recoger tu dorsal realizarás una aportación solidaria a favor de <strong>Carolina Purpurina</strong>. ¡Gracias!</p>
+    <button class="btn btn-gold" onclick="document.getElementById('conf-ov').classList.remove('open')">💚 ¡Perfecto!</button>
+  </div>
+</div>
+
+<!-- ═══ ADMIN ═══ -->
+<div id="adm-ov">
+  <div class="adm-modal">
+    <button class="adm-x" onclick="closeAdmin()">✕</button>
+    <!-- LOGIN -->
+    <div id="adm-login">
+      <h2>Acceso Admin</h2>
+      <div class="adm-login">
+        <p>Introduce la contraseña para acceder al panel de gestión.</p>
+        <input type="password" id="adm-pass" placeholder="••••••" onkeydown="if(event.key==='Enter')checkAdmin()"/>
+        <button class="btn btn-green" onclick="checkAdmin()">Entrar</button>
+        <div id="adm-err" style="margin-top:.8rem"></div>
+      </div>
+    </div>
+    <!-- PANEL -->
+    <div id="adm-panel" style="display:none">
+      <h2>Panel de Administración</h2>
+      <div class="adm-tabs">
+        <button class="adm-tab active" onclick="switchTab('tab-lista',this)">📋 Inscritos</button>
+        <button class="adm-tab" onclick="switchTab('tab-bulk',this)">📤 Carga masiva</button>
+      </div>
+      <!-- LISTA -->
+      <div id="tab-lista" class="adm-tc active">
+        <div class="adm-toolbar">
+          <button class="btn btn-green btn-sm" onclick="exportExcel()">📥 Excel</button>
+          <button class="btn btn-ghost-g btn-sm" onclick="deleteSelected()">🗑️ Eliminar</button>
+          <input class="adm-search" type="text" placeholder="🔍 Buscar..." oninput="filterAdmin(this.value)"/>
+          <span class="adm-cnt" id="adm-cnt">0 inscritos</span>
+        </div>
+        <div class="tw">
+          <table>
+            <thead><tr><th><input type="checkbox" id="chk-all" onchange="toggleAll(this)"/></th><th>#</th><th>Nombre</th><th>Curso</th><th>Email</th><th>Origen</th><th>Fecha</th></tr></thead>
+            <tbody id="adm-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- BULK -->
+      <div id="tab-bulk" class="adm-tc">
+        <div class="bulk-zone" onclick="document.getElementById('bulk-file').click()">
+          <h4>📂 Subir lista de alumnos</h4>
+          <p>Excel (.xlsx) o CSV con columnas <strong>Nombre</strong> y <strong>Curso</strong> (cabecera en la fila 1).<br/>Se añadirán todos como inscritos automáticamente.</p>
+          <input type="file" id="bulk-file" accept=".xlsx,.xls,.csv" onchange="parseBulk(this)"/>
+        </div>
+        <div id="bulk-prev">
+          <p id="bulk-msg" style="font-weight:700;color:var(--g);font-family:'Barlow Condensed',sans-serif;margin-bottom:.5rem"></p>
+          <div style="overflow-x:auto;max-height:200px;overflow-y:auto;border-radius:10px;border:1.5px solid var(--bdr)">
+            <table class="bpt"><thead><tr><th>#</th><th>Nombre</th><th>Curso</th></tr></thead><tbody id="bulk-tbody"></tbody></table>
+          </div>
+          <div class="bulk-actions">
+            <button class="btn btn-green btn-sm" onclick="uploadBulk()">💚 Inscribir todos</button>
+            <button class="btn btn-ghost-g btn-sm" onclick="cancelBulk()">Cancelar</button>
+            <span id="bulk-upload-msg"></span>
+          </div>
+        </div>
+        <div class="manual-box">
+          <h4>Añadir alumno manualmente</h4>
+          <div class="manual-row">
+            <div class="mf"><label>Nombre y apellidos</label><input type="text" id="bl-nombre" placeholder="Nombre completo"/></div>
+            <div class="mf">
+              <label>Curso</label>
+              <select id="bl-curso">
+                <option value="">Selecciona...</option>
+                <option>0-1 años</option><option>2 años</option>
+                <option>Infantil 3 años</option><option>Infantil 4 años</option><option>Infantil 5 años</option>
+                <option>1º Primaria</option><option>2º Primaria</option><option>3º Primaria</option>
+                <option>4º Primaria</option><option>5º Primaria</option><option>6º Primaria</option>
+                <option>Familia / Docente</option>
+              </select>
+            </div>
+            <button class="btn btn-green btn-sm" onclick="addManual()">+ Añadir</button>
+          </div>
+          <div id="manual-msg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- XLSX -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<!-- FIREBASE MODULE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyAlW7S4tpn4YYkoov1Uq93KFmT8cY8Uzms",
+  authDomain:"app-reserva-de-portatiles.firebaseapp.com",
+  databaseURL:"https://app-reserva-de-portatiles-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"app-reserva-de-portatiles",
+  storageBucket:"app-reserva-de-portatiles.firebasestorage.app",
+  messagingSenderId:"170712420790",
+  appId:"1:170712420790:web:e52d1831be2985c6af3117"
+});
+const db = getDatabase(app);
+const dbRef = ref(db,'carrera2026/inscritos');
+let allData = {};
+
+onValue(dbRef, snap => {
+  allData = snap.val() || {};
+  document.getElementById('total-count').textContent = Object.keys(allData).length;
+  renderAdmin(allData);
+});
+
+window.submitForm = async () => {
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const curso  = document.getElementById('f-curso').value;
+  const email  = document.getElementById('f-email').value.trim();
+  const msg    = document.getElementById('form-msg');
+  if (!nombre||!curso||!email){msg.textContent='⚠️ Rellena todos los campos.';msg.className='msg-err';return;}
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.textContent='⚠️ Email no válido.';msg.className='msg-err';return;}
+  msg.textContent='⏳ Enviando...';msg.className='';
+  try {
+    await push(dbRef,{nombre,curso,email,modalidad:'Carrera Familiar',origen:'web',fecha:new Date().toLocaleString('es-ES')});
+    ['f-nombre','f-curso','f-email'].forEach(id=>document.getElementById(id).value='');
+    msg.textContent='';
+    document.getElementById('conf-ov').classList.add('open');
+  } catch { msg.textContent='❌ Error. Inténtalo de nuevo.';msg.className='msg-err'; }
+};
+
+function renderAdmin(data,filter=''){
+  const tbody = document.getElementById('adm-tbody');
+  let entries = Object.entries(data);
+  if(filter){const f=filter.toLowerCase();entries=entries.filter(([,e])=>(e.nombre||'').toLowerCase().includes(f)||(e.curso||'').toLowerCase().includes(f));}
+  document.getElementById('adm-cnt').textContent = `${Object.keys(data).length} inscritos`;
+  if(!entries.length){tbody.innerHTML='<tr><td colspan="7"><div class="empty-st">Sin resultados.</div></td></tr>';return;}
+  tbody.innerHTML=entries.map(([key,e],i)=>`<tr>
+    <td><input type="checkbox" class="rck" data-key="${key}"/></td>
+    <td>${i+1}</td><td>${e.nombre||''}</td>
+    <td><span class="cb">${e.curso||''}</span></td>
+    <td style="font-size:.78rem">${e.email||'—'}</td>
+    <td><span class="sb ${e.origen==='admin'?'sa':'sw'}">${e.origen==='admin'?'Admin':'Web'}</span></td>
+    <td style="font-size:.75rem;color:#888">${e.fecha||''}</td>
+  </tr>`).join('');
+}
+
+window.filterAdmin = v => renderAdmin(allData,v);
+
+window.exportExcel = () => {
+  const e=Object.values(allData);if(!e.length){alert('No hay inscritos.');return;}
+  const ws=XLSX.utils.json_to_sheet(e.map((r,i)=>({'#':i+1,'Nombre':r.nombre,'Curso':r.curso,'Email':r.email||'','Modalidad':r.modalidad,'Origen':r.origen,'Fecha':r.fecha})));
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Inscritos');
+  XLSX.writeFile(wb,'inscritos_carrera2026.xlsx');
+};
+
+window.deleteSelected = async () => {
+  const cks=[...document.querySelectorAll('.rck:checked')];
+  if(!cks.length){alert('Selecciona al menos uno.');return;}
+  if(!confirm(`¿Eliminar ${cks.length} inscrito(s)?`))return;
+  for(const c of cks)await remove(ref(db,`carrera2026/inscritos/${c.dataset.key}`));
+};
+window.toggleAll = m => document.querySelectorAll('.rck').forEach(c=>c.checked=m.checked);
+
+// BULK
+let bulkRows=[];
+window.parseBulk = input => {
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const wb=XLSX.read(e.target.result,{type:'binary'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const raw=XLSX.utils.sheet_to_json(ws,{defval:''});
+    bulkRows=raw.map(row=>{
+      const k=Object.keys(row);
+      return{nombre:String(row['Nombre']||row['nombre']||row[k[0]]||'').trim(),
+             curso: String(row['Curso']||row['curso']||row[k[1]]||'').trim()};
+    }).filter(r=>r.nombre);
+    document.getElementById('bulk-msg').textContent=`✅ ${bulkRows.length} alumnos detectados`;
+    document.getElementById('bulk-tbody').innerHTML=bulkRows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.nombre}</td><td>${r.curso}</td></tr>`).join('');
+    document.getElementById('bulk-prev').style.display='';
+  };
+  reader.readAsBinaryString(file);
+};
+window.uploadBulk = async () => {
+  if(!bulkRows.length)return;
+  const msg=document.getElementById('bulk-upload-msg');
+  msg.textContent='⏳ Subiendo...';
+  const fecha=new Date().toLocaleString('es-ES');
+  for(const r of bulkRows)await push(dbRef,{nombre:r.nombre,curso:r.curso,email:'',modalidad:'Carrera Familiar',origen:'admin',fecha});
+  msg.textContent=`✅ ${bulkRows.length} alumnos inscritos.`;
+  bulkRows=[];document.getElementById('bulk-prev').style.display='none';document.getElementById('bulk-file').value='';
+};
+window.cancelBulk=()=>{bulkRows=[];document.getElementById('bulk-prev').style.display='none';document.getElementById('bulk-file').value='';};
+
+window.addManual = async () => {
+  const nombre=document.getElementById('bl-nombre').value.trim();
+  const curso=document.getElementById('bl-curso').value;
+  const msg=document.getElementById('manual-msg');
+  if(!nombre||!curso){msg.textContent='⚠️ Rellena nombre y curso.';msg.style.color='#dc2626';return;}
+  await push(dbRef,{nombre,curso,email:'',modalidad:'Carrera Familiar',origen:'admin',fecha:new Date().toLocaleString('es-ES')});
+  msg.textContent=`✅ ${nombre} añadido/a.`;msg.style.color='#166534';
+  document.getElementById('bl-nombre').value='';document.getElementById('bl-curso').value='';
+};
+</script>
+
+<script>
+// HAMBURGER MENU
+window.toggleMenu=function(){
+  var btn=document.getElementById('hamburger');
+  var links=document.getElementById('nav-links');
+  btn.classList.toggle('open');
+  links.classList.toggle('open');
+};
+window.closeMenu=function(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('nav-links').classList.remove('open');
+};
+document.addEventListener('click',function(e){
+  var nav=document.querySelector('nav');
+  if(!nav.contains(e.target)) closeMenu();
+});
+
+// COUNTDOWN
+function tick(){
+  const diff=new Date('2026-05-29T09:00:00')-new Date();
+  if(diff<=0){document.getElementById('countdown').innerHTML='<div class="cd-box" style="grid-column:span 4"><span class="cd-num" style="font-size:2rem">🎉 ¡Hoy es el día!</span></div>';return;}
+  document.getElementById('cd-days').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cd-hours').textContent=String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
+  document.getElementById('cd-mins').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+  document.getElementById('cd-secs').textContent=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+// PAGES
+window.showPage=function(name){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
+  var el=document.getElementById('nav-'+name);if(el)el.classList.add('active');
+};
+window.goTo=function(id){setTimeout(function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},250);};
+
+// ADMIN
+var unlocked=false;
+window.openAdmin=function(){document.getElementById('adm-ov').classList.add('open');if(!unlocked){document.getElementById('adm-login').style.display='';document.getElementById('adm-panel').style.display='none';}};
+window.closeAdmin=function(){document.getElementById('adm-ov').classList.remove('open');};
+window.checkAdmin=function(){
+  if(document.getElementById('adm-pass').value==='112233'){
+    unlocked=true;document.getElementById('adm-login').style.display='none';document.getElementById('adm-panel').style.display='';
+  }else{document.getElementById('adm-err').textContent='❌ Contraseña incorrecta.';document.getElementById('adm-pass').value='';}
+};
+document.getElementById('adm-ov').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAdmin();});
+
+window.switchTab=function(id,btn){
+  document.querySelectorAll('.adm-tc').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.adm-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+};
+
+// VIDEOS
+var videoFile=null;
+window.previewVideo=function(input){
+  videoFile=input.files[0];if(!videoFile)return;
+  document.getElementById('video-preview').src=URL.createObjectURL(videoFile);
+  document.getElementById('video-preview-wrap').style.display='';
+  document.getElementById('video-upload-msg').textContent='';
+};
+window.cancelVideo=function(){videoFile=null;document.getElementById('video-preview-wrap').style.display='none';document.getElementById('video-input').value='';};
+window.uploadVideo=function(){
+  document.getElementById('video-upload-msg').textContent='💚 ¡Gracias! Para publicar el vídeo en la web, envíalo al email del centro. Será publicado próximamente.';
+  setTimeout(function(){cancelVideo();},3500);
+};
+
+// SCROLL REVEAL
+var reveals=document.querySelectorAll('.reveal');
+var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});},{threshold:.12});
+reveals.forEach(function(r){ro.observe(r);});
+
+// PARTICLES
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();addEventListener('resize',rsz);
+var COLS=['#27924d','#a8d9b8','#d4a017','#eaf6ee','#1b6636','#c9e8d6'];
+function Pt(){this.r2();}
+Pt.prototype.r2=function(){this.x=Math.random()*cv.width;this.y=Math.random()*cv.height;this.r=Math.random()*3+.8;this.vx=(Math.random()-.5)*.35;this.vy=Math.random()*.45+.18;this.a=Math.random()*.45+.15;this.c=COLS[Math.floor(Math.random()*COLS.length)];this.rot=Math.random()*Math.PI*2;this.rs=(Math.random()-.5)*.055;this.sq=Math.random()>.5;};
+Pt.prototype.step=function(){this.x+=this.vx;this.y+=this.vy;this.rot+=this.rs;if(this.y>cv.height+10){this.r2();this.y=-10;}};
+Pt.prototype.draw=function(){ctx.save();ctx.globalAlpha=this.a;ctx.fillStyle=this.c;ctx.translate(this.x,this.y);ctx.rotate(this.rot);if(this.sq)ctx.fillRect(-this.r,-this.r*.4,this.r*2,this.r*.8);else{ctx.beginPath();ctx.arc(0,0,this.r,0,Math.PI*2);ctx.fill();}ctx.restore();};
+var pts=Array.from({length:110},function(){return new Pt();});
+(function loop(){ctx.clearRect(0,0,cv.width,cv.height);pts.forEach(function(p){p.step();p.draw();});requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>
